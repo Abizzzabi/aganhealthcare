@@ -1,0 +1,331 @@
+import 'package:agan_healthcare_service/offers.dart';
+import 'package:agan_healthcare_service/patientprofile.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:agan_healthcare_service/doctorprofile.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+
+
+class Appoinment extends StatefulWidget {
+  const Appoinment({super.key});
+
+  @override
+  State<Appoinment> createState() => _AppoinmentState();
+}
+
+class _AppoinmentState extends State<Appoinment> {
+  int _value = 1;
+  late String _radioVal;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 42, 109, 52),
+        toolbarHeight: 50,
+        elevation: 0,
+        leading: Icon(Icons.arrow_back, color: Colors.white,),
+        title: const Text('APPOINMENT', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+        centerTitle: true,
+        actions: [
+           TextButton
+          (child:Icon(Icons.notifications, size: 30, color: Colors.white),
+          onPressed: () {},
+          ),
+           TextButton
+          (child:Icon(Icons.account_circle_outlined, size: 30, color: Colors.white),
+          onPressed: () {
+              Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const patientprofile()),
+  );
+          },
+          )
+        ],
+      ),
+      
+     body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(padding: EdgeInsets.only(top: 12, right: 30)),
+            Row(
+              children: [
+                Padding(padding: EdgeInsets.only(top: 10, left: 30),
+               child:Text('Treatment inquiry for', style: TextStyle(fontWeight: FontWeight.bold),)
+                ), 
+                  Padding(
+                padding: EdgeInsets.only(left: 8, top: 11),
+                child: Radio(
+                  value: 1,
+                  groupValue: _value,
+                  activeColor: Color.fromRGBO(78, 121, 63, 1),
+                  onChanged: (value) {
+                    setState(() {
+                      _value = value!;
+                      _radioVal = 'myself';
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text('Myself', style: TextStyle(color: Colors.black,fontSize:12)),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 2,top:10),
+                child: Radio(
+                  value: 2,
+                  groupValue: _value,
+                  activeColor: Color.fromRGBO(78, 121, 63, 1),
+                  onChanged: (value) {
+                    setState(() {
+                      _value = value!;
+                       _radioVal = 'someone';
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child:
+                      Text('Someone', style: TextStyle(color: Colors.black,fontSize:12))),
+               ],
+              ),
+              
+            Padding(padding: EdgeInsets.only(top: 30, left: 25),
+            child:Text('Company Name',style: TextStyle(fontWeight: FontWeight.bold),), 
+            ),
+            Padding(padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+            child: TextField(
+              style: TextStyle(height: 1),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  ),
+               
+              ),
+            ),
+            ),
+             Padding(padding: EdgeInsets.only(top: 15, left: 25),
+             child:
+            Text('Employee ID',style: TextStyle(fontWeight: FontWeight.bold),),
+             ),
+            Padding(padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+            child: TextField(
+              style: TextStyle(height: 1),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15)),
+                
+              ),
+            ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 10, left: 25),
+            child: 
+            Text('Name',style: TextStyle(fontWeight: FontWeight.bold),),
+            ),
+            Padding(padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+            child: TextField(
+              style: TextStyle(height: 1),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(color:Colors.redAccent,width: 2.0),
+                ),
+                
+              ),
+            ),
+            ),
+             Row(
+              children: [
+                Padding(padding: EdgeInsets.only(top: 10,left: 30),
+                child: Text('Age',style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+                SizedBox(width: 160,),
+                Padding(padding: EdgeInsets.only(top: 10, right: 30),
+                child:
+                Text('Gender',style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+              ],
+             ),
+             Padding(padding: EdgeInsets.only(left: 15),
+            child: Row(
+             children: [
+               SizedBox(width: 120,
+          child:    Expanded(child: TextField(
+            style: TextStyle(height: 1),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: 
+                  BorderRadius.circular(15),
+                  
+                  )
+                ),
+              )),),
+              SizedBox(width: 80,),
+            
+            SizedBox(width: 160,               
+               child: Expanded(child: TextField(
+                style: TextStyle(height: 1),
+                decoration: InputDecoration(
+                  //contentPadding: EdgeInsets.symmetric(horizontal: 100.0),
+                  border: OutlineInputBorder(borderRadius: 
+                  BorderRadius.circular(15)
+                  )
+                ),
+              )),),
+             ],
+             ),),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(padding: EdgeInsets.only(top: 15, left: 25),
+            child:
+            Text('Relative Type',style: TextStyle(fontWeight: FontWeight.bold),),
+            ),
+            Padding(padding: EdgeInsets.only(top: 5,left: 10,right: 10),
+            child: TextField(
+              style: TextStyle(height: 1),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  ),
+               
+              ),
+            ),
+            ),
+             Padding(padding: EdgeInsets.only(top: 15, left: 25),
+             child:
+            Text('Issues',style: TextStyle(fontWeight: FontWeight.bold),),
+             ),
+            Padding(padding: EdgeInsets.only(top: 5,left: 10,right: 10),
+            child: TextField(
+              style: TextStyle(height: 1),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15)),
+                
+              ),
+            ),
+            ),
+            Padding(padding: EdgeInsets.only(top: 15, left: 25),
+            child:
+            Text('Consultant',style: TextStyle(fontWeight: FontWeight.bold),),
+            ),
+            Padding(padding: EdgeInsets.only(top: 5,left: 10,right: 10),
+            child: TextField(
+              style: TextStyle(height: 1),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color:Colors.redAccent,width: 2.0),
+                ),
+                
+              ),
+            ),
+            ),
+          ]
+            ),
+           Row(
+              children: [
+                Padding(padding: EdgeInsets.only(top: 15, left: 30),
+                child:
+                Text('Date', style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+                SizedBox(width: 175,),
+                Padding(padding: EdgeInsets.only(top: 10,right: 10),
+                child:Text('Timing',style: TextStyle(fontWeight: FontWeight.bold),),
+                ),
+              ],
+             ),
+              Padding(padding: EdgeInsets.only(left: 20),
+            child: Row(
+             children: [
+               SizedBox(width: 130,
+          child:    Expanded(child: TextField(
+                decoration: InputDecoration(
+                  suffixIcon: IconButton(icon: Icon(Icons.calendar_month, color: Colors.black,),
+                  onPressed: () {},
+                  ),
+                  
+                  border: OutlineInputBorder(borderRadius: 
+                  BorderRadius.circular(12),
+                  
+                  )
+                ),
+              )),),
+              SizedBox(width: 80,),
+            
+            SizedBox(width: 150,               
+               child: Expanded(child: TextField(
+                decoration: InputDecoration(
+                  //contentPadding: EdgeInsets.symmetric(horizontal: 100.0),
+                  border: OutlineInputBorder(borderRadius: 
+                  BorderRadius.circular(12)
+                  )
+                ),
+              )),),
+             ],
+             ),),
+            Padding(padding: EdgeInsets.all(25),
+             child: ElevatedButton(
+            onPressed: () {
+              Dialogs.materialDialog(context: context,
+                 actions: [
+                   Center(
+                      child: Column(
+                        children: const [
+                          CircleAvatar(
+                            backgroundImage: AssetImage('assets/image/correct.jpg'),
+                            radius: 60,
+                          ),
+                          SizedBox(height: 10,),
+                          Text(
+                            'Booked!', 
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text('You have successfully booked',
+                          style: TextStyle(
+                            fontSize: 18
+                          ),
+                          ),
+                          SizedBox(width: 50,),
+                          Text('an appoinment',
+                          style: TextStyle(
+                            fontSize: 18
+                          ),
+                          ),
+                          SizedBox(height: 20,),
+                        ],
+                      ),
+                    ),
+                  
+                  
+                  
+                 ]
+              );
+              
+           
+            },
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 42, 109, 52),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 90, vertical: 10),
+                textStyle:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,)),
+            child: const Text('Book Appoinment',style: TextStyle(fontSize: 20, color: Colors.white),),
+),
+             ), 
+              
+             
+          ]
+        ),
+      ),
+    );
+  }
+}
