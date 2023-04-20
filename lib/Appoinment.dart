@@ -1,8 +1,5 @@
-import 'package:agan_healthcare_service/offers.dart';
 import 'package:agan_healthcare_service/patientprofile.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:agan_healthcare_service/doctorprofile.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 
 
@@ -15,28 +12,27 @@ class Appoinment extends StatefulWidget {
 
 class _AppoinmentState extends State<Appoinment> {
   int _value = 1;
-  late String _radioVal;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 42, 109, 52),
+        backgroundColor: const Color.fromARGB(255, 42, 109, 52),
         toolbarHeight: 50,
         elevation: 0,
-        leading: Icon(Icons.arrow_back, color: Colors.white,),
+        leading: const Icon(Icons.arrow_back, color: Colors.white,),
         title: const Text('APPOINMENT', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
         centerTitle: true,
         actions: [
            TextButton
-          (child:Icon(Icons.notifications, size: 30, color: Colors.white),
+          (child:const Icon(Icons.notifications, size: 30, color: Colors.white),
           onPressed: () {},
           ),
            TextButton
-          (child:Icon(Icons.account_circle_outlined, size: 30, color: Colors.white),
+          (child:const Icon(Icons.account_circle_outlined, size: 30, color: Colors.white),
           onPressed: () {
               Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const patientprofile()),
+    MaterialPageRoute(builder: (context) => const Patientprofile()),
   );
           },
           )
@@ -47,57 +43,55 @@ class _AppoinmentState extends State<Appoinment> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(padding: EdgeInsets.only(top: 12, right: 30)),
+            const Padding(padding: EdgeInsets.only(top: 12, right: 30)),
             Row(
               children: [
-                Padding(padding: EdgeInsets.only(top: 10, left: 30),
+                const Padding(padding: EdgeInsets.only(top: 10, left: 30),
                child:Text('Treatment inquiry for', style: TextStyle(fontWeight: FontWeight.bold),)
                 ), 
                   Padding(
-                padding: EdgeInsets.only(left: 8, top: 11),
+                padding: const EdgeInsets.only(left: 8, top: 11),
                 child: Radio(
                   value: 1,
                   groupValue: _value,
-                  activeColor: Color.fromRGBO(78, 121, 63, 1),
+                  activeColor: const Color.fromRGBO(78, 121, 63, 1),
                   onChanged: (value) {
                     setState(() {
                       _value = value!;
-                      _radioVal = 'myself';
                     });
                   },
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 10),
                 child: Text('Myself', style: TextStyle(color: Colors.black,fontSize:12)),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 2,top:10),
+                padding: const EdgeInsets.only(left: 2,top:10),
                 child: Radio(
                   value: 2,
                   groupValue: _value,
-                  activeColor: Color.fromRGBO(78, 121, 63, 1),
+                  activeColor: const Color.fromRGBO(78, 121, 63, 1),
                   onChanged: (value) {
                     setState(() {
                       _value = value!;
-                       _radioVal = 'someone';
                     });
                   },
                 ),
               ),
-              Padding(
+              const Padding(
                   padding: EdgeInsets.only(top: 10),
                   child:
                       Text('Someone', style: TextStyle(color: Colors.black,fontSize:12))),
                ],
               ),
               
-            Padding(padding: EdgeInsets.only(top: 30, left: 25),
+            const Padding(padding: EdgeInsets.only(top: 30, left: 25),
             child:Text('Company Name',style: TextStyle(fontWeight: FontWeight.bold),), 
             ),
-            Padding(padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+            Padding(padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
             child: TextField(
-              style: TextStyle(height: 1),
+              style: const TextStyle(height: 1),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
@@ -106,13 +100,13 @@ class _AppoinmentState extends State<Appoinment> {
               ),
             ),
             ),
-             Padding(padding: EdgeInsets.only(top: 15, left: 25),
+             const Padding(padding: EdgeInsets.only(top: 15, left: 25),
              child:
             Text('Employee ID',style: TextStyle(fontWeight: FontWeight.bold),),
              ),
-            Padding(padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+            Padding(padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
             child: TextField(
-              style: TextStyle(height: 1),
+              style: const TextStyle(height: 1),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15)),
@@ -120,24 +114,24 @@ class _AppoinmentState extends State<Appoinment> {
               ),
             ),
             ),
-            Padding(padding: EdgeInsets.only(top: 10, left: 25),
+            const Padding(padding: EdgeInsets.only(top: 10, left: 25),
             child: 
             Text('Name',style: TextStyle(fontWeight: FontWeight.bold),),
             ),
-            Padding(padding: EdgeInsets.only(top: 5, left: 10, right: 10),
+            Padding(padding: const EdgeInsets.only(top: 5, left: 10, right: 10),
             child: TextField(
-              style: TextStyle(height: 1),
+              style: const TextStyle(height: 1),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(color:Colors.redAccent,width: 2.0),
+                borderSide: const BorderSide(color:Colors.redAccent,width: 2.0),
                 ),
                 
               ),
             ),
             ),
              Row(
-              children: [
+              children: const [
                 Padding(padding: EdgeInsets.only(top: 10,left: 30),
                 child: Text('Age',style: TextStyle(fontWeight: FontWeight.bold),),
                 ),
@@ -148,12 +142,12 @@ class _AppoinmentState extends State<Appoinment> {
                 ),
               ],
              ),
-             Padding(padding: EdgeInsets.only(left: 15),
+             Padding(padding: const EdgeInsets.only(left: 15),
             child: Row(
              children: [
                SizedBox(width: 120,
           child:    Expanded(child: TextField(
-            style: TextStyle(height: 1),
+            style: const TextStyle(height: 1),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(borderRadius: 
                   BorderRadius.circular(15),
@@ -161,11 +155,11 @@ class _AppoinmentState extends State<Appoinment> {
                   )
                 ),
               )),),
-              SizedBox(width: 80,),
+              const SizedBox(width: 80,),
             
             SizedBox(width: 160,               
                child: Expanded(child: TextField(
-                style: TextStyle(height: 1),
+                style: const TextStyle(height: 1),
                 decoration: InputDecoration(
                   //contentPadding: EdgeInsets.symmetric(horizontal: 100.0),
                   border: OutlineInputBorder(borderRadius: 
@@ -178,13 +172,13 @@ class _AppoinmentState extends State<Appoinment> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(padding: EdgeInsets.only(top: 15, left: 25),
+            const Padding(padding: EdgeInsets.only(top: 15, left: 25),
             child:
             Text('Relative Type',style: TextStyle(fontWeight: FontWeight.bold),),
             ),
-            Padding(padding: EdgeInsets.only(top: 5,left: 10,right: 10),
+            Padding(padding: const EdgeInsets.only(top: 5,left: 10,right: 10),
             child: TextField(
-              style: TextStyle(height: 1),
+              style: const TextStyle(height: 1),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
@@ -193,13 +187,13 @@ class _AppoinmentState extends State<Appoinment> {
               ),
             ),
             ),
-             Padding(padding: EdgeInsets.only(top: 15, left: 25),
+             const Padding(padding: EdgeInsets.only(top: 15, left: 25),
              child:
             Text('Issues',style: TextStyle(fontWeight: FontWeight.bold),),
              ),
-            Padding(padding: EdgeInsets.only(top: 5,left: 10,right: 10),
+            Padding(padding: const EdgeInsets.only(top: 5,left: 10,right: 10),
             child: TextField(
-              style: TextStyle(height: 1),
+              style: const TextStyle(height: 1),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15)),
@@ -207,17 +201,17 @@ class _AppoinmentState extends State<Appoinment> {
               ),
             ),
             ),
-            Padding(padding: EdgeInsets.only(top: 15, left: 25),
+            const Padding(padding: EdgeInsets.only(top: 15, left: 25),
             child:
             Text('Consultant',style: TextStyle(fontWeight: FontWeight.bold),),
             ),
-            Padding(padding: EdgeInsets.only(top: 5,left: 10,right: 10),
+            Padding(padding: const EdgeInsets.only(top: 5,left: 10,right: 10),
             child: TextField(
-              style: TextStyle(height: 1),
+              style: const TextStyle(height: 1),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color:Colors.redAccent,width: 2.0),
+                borderSide: const BorderSide(color:Colors.redAccent,width: 2.0),
                 ),
                 
               ),
@@ -226,7 +220,7 @@ class _AppoinmentState extends State<Appoinment> {
           ]
             ),
            Row(
-              children: [
+              children: const [
                 Padding(padding: EdgeInsets.only(top: 15, left: 30),
                 child:
                 Text('Date', style: TextStyle(fontWeight: FontWeight.bold),),
@@ -237,13 +231,13 @@ class _AppoinmentState extends State<Appoinment> {
                 ),
               ],
              ),
-              Padding(padding: EdgeInsets.only(left: 20),
+              Padding(padding: const EdgeInsets.only(left: 20),
             child: Row(
              children: [
                SizedBox(width: 130,
           child:    Expanded(child: TextField(
                 decoration: InputDecoration(
-                  suffixIcon: IconButton(icon: Icon(Icons.calendar_month, color: Colors.black,),
+                  suffixIcon: IconButton(icon: const Icon(Icons.calendar_month, color: Colors.black,),
                   onPressed: () {},
                   ),
                   
@@ -253,7 +247,7 @@ class _AppoinmentState extends State<Appoinment> {
                   )
                 ),
               )),),
-              SizedBox(width: 80,),
+              const SizedBox(width: 80,),
             
             SizedBox(width: 150,               
                child: Expanded(child: TextField(
@@ -266,7 +260,7 @@ class _AppoinmentState extends State<Appoinment> {
               )),),
              ],
              ),),
-            Padding(padding: EdgeInsets.all(25),
+            Padding(padding: const EdgeInsets.all(25),
              child: ElevatedButton(
             onPressed: () {
               Dialogs.materialDialog(context: context,
@@ -313,7 +307,7 @@ class _AppoinmentState extends State<Appoinment> {
            
             },
             style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 42, 109, 52),
+                backgroundColor: const Color.fromARGB(255, 42, 109, 52),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 90, vertical: 10),
                 textStyle:

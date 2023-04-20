@@ -3,14 +3,14 @@ import 'package:agan_healthcare_service/login1.dart';
 import 'package:agan_healthcare_service/patientprofile.dart';
 import 'package:flutter/material.dart';
 
-class offers extends StatefulWidget {
-  const offers({super.key});
+class Offers extends StatefulWidget {
+  const Offers({super.key});
 
   @override
-  State<offers> createState() => _offersState();
+  State<Offers> createState() => _OffersState();
 }
 
-class _offersState extends State<offers> {
+class _OffersState extends State<Offers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,7 @@ class _offersState extends State<offers> {
           onPressed: () {
               Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const login()),
+    MaterialPageRoute(builder: (context) => const Login()),
   );
           },
           )

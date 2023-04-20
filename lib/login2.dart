@@ -15,16 +15,17 @@ class _login2State extends State<login2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body: Center(
+
+      body: SingleChildScrollView(
+      child:Center(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(padding: EdgeInsets.only(top: 60,left: 120,bottom: 60),
+              Padding(padding: const EdgeInsets.only(top: 60,left: 120,bottom: 60),
               child:Image.asset('assets/image/plus1.jpg',),),
-              Padding(padding: EdgeInsets.only(left: 50),
+              Padding(padding: const EdgeInsets.only(left: 50),
               child: Row(
-                children: [
+                children: const [
                   SizedBox(width: 35,),
                   Text.rich(
                     TextSpan(
@@ -64,7 +65,7 @@ class _login2State extends State<login2> {
                 ],
               ),
               ),
-              Padding(padding: EdgeInsets.only(left: 140),
+              const Padding(padding: EdgeInsets.only(left: 140),
               child: Text.rich(
                 TextSpan(
                   text: 'S',
@@ -83,7 +84,7 @@ class _login2State extends State<login2> {
                 )
               ),
               ),
-              Padding(padding: EdgeInsets.only(top: 30, left: 45),
+              const Padding(padding: EdgeInsets.only(top: 30, left: 40),
               child: Text('Enter the OTP sent to your number',
               style: TextStyle(
                 fontSize: 20,
@@ -92,7 +93,7 @@ class _login2State extends State<login2> {
               ),
               ),
               ),
-             Padding(padding: EdgeInsets.only(left: 50, top: 20),
+             Padding(padding: const EdgeInsets.only(left: 50, top: 20),
               child: Row(
                children: [
                  SizedBox(width: 50,
@@ -105,7 +106,7 @@ class _login2State extends State<login2> {
                     )
                   ),
                 )),),
-                SizedBox(width: 30,),
+                const SizedBox(width: 30,),
               
               SizedBox(width: 50,
               height: 50,               
@@ -117,7 +118,7 @@ class _login2State extends State<login2> {
                     )
                   ),
                 )),),
-                SizedBox(width: 30,),
+                const SizedBox(width: 30,),
               
               SizedBox(width: 50,
               height: 50,               
@@ -129,7 +130,7 @@ class _login2State extends State<login2> {
                     )
                   ),
                 )),),
-                SizedBox(width: 30,),
+                const SizedBox(width: 30,),
               
               SizedBox(width: 50,
               height: 50,               
@@ -143,10 +144,10 @@ class _login2State extends State<login2> {
                 )),),
                ],
                ),),
-               Padding(padding: EdgeInsets.only(left: 130, top: 20),
+               const Padding(padding: EdgeInsets.only(left: 130, top: 20),
                 child: Text("Didn't Receive OTP?"),
                ),
-               Padding(padding: EdgeInsets.only(left: 150, top: 18),
+               const Padding(padding: EdgeInsets.only(left: 150, top: 18),
                 child: Text("Resend OTP",
                 style: TextStyle(
                   fontSize: 17,
@@ -155,7 +156,7 @@ class _login2State extends State<login2> {
                 ),
                 ),
                ),
-               Padding(padding: EdgeInsets.only(top: 30, left: 20, right: 12),
+               Padding(padding: const EdgeInsets.only(top: 30, left: 20, right: 12),
                 child: SizedBox(height: 40, width: 350,
                 child: ElevatedButton(onPressed: () {
                   Navigator.push(
@@ -164,16 +165,17 @@ class _login2State extends State<login2> {
   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 42, 109, 52),
-                  padding: EdgeInsets.symmetric(horizontal: 90, vertical: 10),
+                  backgroundColor: const Color.fromARGB(255, 42, 109, 52),
+                  padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 10),
                 ), 
-                child: Text('Verify OTP'),
+                child: const Text('Verify OTP'),
                 ),
                 ),
                 )
             ]
         ),
       )
+      ),
     );
   }
 }

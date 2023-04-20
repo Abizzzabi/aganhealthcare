@@ -2,14 +2,14 @@ import 'package:agan_healthcare_service/Appoinment.dart';
 import 'package:agan_healthcare_service/offers.dart';
 import 'package:flutter/material.dart';
 
-class patientprofile extends StatefulWidget {
-  const patientprofile({super.key});
+class Patientprofile extends StatefulWidget {
+  const Patientprofile({super.key});
 
   @override
-  State<patientprofile> createState() => _patientprofileState();
+  State<Patientprofile> createState() => _PatientprofileState();
 }
 
-class _patientprofileState extends State<patientprofile> {
+class _PatientprofileState extends State<Patientprofile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class _patientprofileState extends State<patientprofile> {
           onPressed: () {
              Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => const offers()),
+    MaterialPageRoute(builder: (context) => const Offers()),
   );
           },
           )
@@ -266,6 +266,19 @@ class _patientprofileState extends State<patientprofile> {
               ),
           ),
           ),
+           Padding(padding: const EdgeInsets.all(25),
+             child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 42, 109, 52),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 90, vertical: 10),
+                textStyle:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold,)),
+            child: const Text('Save',style: TextStyle(fontSize: 20, color: Colors.white),),
+),
+             ), 
+              
           ],
         ),
       ),
