@@ -2,28 +2,27 @@ import 'package:agan_healthcare_service/login2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-class login extends StatefulWidget {
-  const login({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<login> createState() => _loginState();
+  State<Login> createState() => _LoginState();
 }
 
-class _loginState extends State<login> {
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-        
-      child:  Center(
+      child:  Center(        
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(padding: EdgeInsets.only(top: 60,left: 120,bottom: 60),
+              Padding(padding: const EdgeInsets.only(top: 60,left: 120,bottom: 60),
               child:Image.asset('assets/image/plus1.jpg',),),
-              Padding(padding: EdgeInsets.only(left: 50),
+              Padding(padding: const EdgeInsets.only(left: 50),
               child: Row(
-                children: [
+                children: const [
                   SizedBox(width: 35,),
                   Text.rich(
                     TextSpan(
@@ -63,7 +62,7 @@ class _loginState extends State<login> {
                 ],
               ),
               ),
-              Padding(padding: EdgeInsets.only(left: 140),
+              const Padding(padding: EdgeInsets.only(left: 140),
               child: Text.rich(
                 TextSpan(
                   text: 'S',
@@ -82,7 +81,7 @@ class _loginState extends State<login> {
                 )
               ),
               ),
-              Padding(padding: EdgeInsets.only(top: 30, left: 30),
+              const Padding(padding: EdgeInsets.only(top: 30, left: 30),
               child: Text('Enter your mobile number',
               style: TextStyle(
                 fontSize: 20,
@@ -91,7 +90,7 @@ class _loginState extends State<login> {
               ),
               ),
               ),
-              SizedBox(
+              const SizedBox(
                     height: 10,
                   ),
                   Padding(
@@ -101,7 +100,7 @@ class _loginState extends State<login> {
                         //labelText: 'Phone Number',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(),
+                          borderSide: const BorderSide(),
                         ),
                       ),
                       onChanged: (phone) {
@@ -114,13 +113,13 @@ class _loginState extends State<login> {
                   ),
                   
               
-              Padding(padding: EdgeInsets.only(top: 25, left: 60),
+              const Padding(padding: EdgeInsets.only(top: 25, left: 60),
               child: Text('We will send you an One Time Password'),
               ),
-              Padding(padding: EdgeInsets.only(left: 120),
+              const Padding(padding: EdgeInsets.only(left: 120),
               child: Text('on this mobile number'),
               ),
-              Padding(padding: EdgeInsets.only(top: 30, left: 20, right: 12),
+              Padding(padding: const EdgeInsets.only(top: 30, left: 20, right: 12),
               child: SizedBox(height: 40, width: 350,
               child: ElevatedButton(onPressed: () {
                 Navigator.push(
@@ -129,10 +128,10 @@ class _loginState extends State<login> {
   );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 42, 109, 52),
-                padding: EdgeInsets.symmetric(horizontal: 90, vertical: 10),
+                backgroundColor: const Color.fromARGB(255, 42, 109, 52),
+                padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 10),
               ), 
-              child: Text('Send OTP'),
+              child: const Text('Send OTP'),
               ),
               ),
               )
