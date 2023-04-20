@@ -45,50 +45,7 @@ class _AppoinmentState extends State<Appoinment> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(padding: EdgeInsets.only(top: 12, right: 30)),
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.only(top: 10, left: 30),
-               child:Text('Treatment inquiry for', style: TextStyle(fontWeight: FontWeight.bold),)
-                ), 
-                  Padding(
-                padding: EdgeInsets.only(left: 8, top: 11),
-                child: Radio(
-                  value: 1,
-                  groupValue: _value,
-                  activeColor: Color.fromRGBO(78, 121, 63, 1),
-                  onChanged: (value) {
-                    setState(() {
-                      _value = value!;
-                      _radioVal = 'myself';
-                    });
-                  },
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text('Myself', style: TextStyle(color: Colors.black,fontSize:12)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 2,top:10),
-                child: Radio(
-                  value: 2,
-                  groupValue: _value,
-                  activeColor: Color.fromRGBO(78, 121, 63, 1),
-                  onChanged: (value) {
-                    setState(() {
-                      _value = value!;
-                       _radioVal = 'someone';
-                    });
-                  },
-                ),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child:
-                      Text('Someone', style: TextStyle(color: Colors.black,fontSize:12))),
-               ],
-              ),
-              
+           
             const Padding(padding: EdgeInsets.only(top: 30, left: 25),
             child:Text('Company Name',style: TextStyle(fontWeight: FontWeight.bold),), 
             ),
