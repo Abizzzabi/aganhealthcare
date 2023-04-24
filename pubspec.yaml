@@ -41,6 +41,9 @@ dependencies:
   material_dialogs: ^1.1.4
   http: ^0.13.5
   get: ^4.6.5
+  firebase_core: ^2.10.0
+  firebase_auth: ^4.4.2
+
   
 dev_dependencies:
   flutter_test:
@@ -66,28 +69,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/image/lady doctor.png
-    - assets/image/correct.jpg
-    - assets/image/lab.png
-    - assets/image/plus1.jpg
-    - assets/image/profile2.jpg
-    - assets/image/cordialogist.png
-    - assets/image/opthalmologist.png
-    - assets/image/ent.png
-    - assets/image/gynaecologist.png
-    - assets/image/diabetologist.png
-    - assets/image/neurologist.png
-    - assets/image/dermotologist.png
-    - assets/image/dentist.png
-    - assets/image/ortho.png
-    - assets/image/paediatrician.png
-    - assets/image/doctor.png
-    - assets/image/vivian.png
-    - assets/image/steve.png
-    - assets/image/travis.png
-    - assets/image/ellan.png
-    - assets/image/philmon.png
-    - assets/image/ann.png
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
