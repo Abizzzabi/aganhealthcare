@@ -1,4 +1,5 @@
 import 'package:agan_healthcare_service/login2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -10,6 +11,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController phonecontroller=TextEditingController();
+  
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +101,7 @@ class _LoginState extends State<Login> {
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: IntlPhoneField(
+                      controller: phonecontroller,
                       decoration: InputDecoration(
                         //labelText: 'Phone Number',
                         border: OutlineInputBorder(
@@ -103,6 +109,7 @@ class _LoginState extends State<Login> {
                           borderSide: const BorderSide(),
                         ),
                       ),
+                      keyboardType: TextInputType.phone,
                       onChanged: (phone) {
                         print(phone.completeNumber);
                       },
@@ -122,6 +129,7 @@ class _LoginState extends State<Login> {
               Padding(padding: const EdgeInsets.only(top: 30, left: 20, right: 12),
               child: SizedBox(height: 40, width: 350,
               child: ElevatedButton(onPressed: () {
+               
                 Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => const login2()),

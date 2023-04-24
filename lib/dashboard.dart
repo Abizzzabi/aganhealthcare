@@ -3,8 +3,6 @@ import 'package:agan_healthcare_service/history.dart';
 import 'package:agan_healthcare_service/models/servicemodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'history.dart';
-import 'doctors.dart';
 import 'neuralogist.dart';
 
 class Dashboard extends StatefulWidget {

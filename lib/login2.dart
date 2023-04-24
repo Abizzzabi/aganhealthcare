@@ -12,6 +12,9 @@ class login2 extends StatefulWidget {
 }
 
 class _login2State extends State<login2> {
+  TextEditingController otpCodeController=TextEditingController();
+
+  bool otpCodevisible=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
