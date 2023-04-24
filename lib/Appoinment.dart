@@ -1,3 +1,4 @@
+import 'package:agan_healthcare_service/offers.dart';
 import 'package:agan_healthcare_service/patientprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
@@ -19,7 +20,7 @@ class _AppoinmentState extends State<Appoinment> {
         backgroundColor: const Color.fromARGB(255, 42, 109, 52),
         toolbarHeight: 50,
         elevation: 0,
-        leading: const Icon(Icons.arrow_back, color: Colors.white,),
+        leading: Icon(Icons.arrow_back, color: Colors.white,),
         title: const Text('APPOINMENT', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
         centerTitle: true,
         actions: [
@@ -43,49 +44,8 @@ class _AppoinmentState extends State<Appoinment> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(padding: EdgeInsets.only(top: 12, right: 30)),
-            Row(
-              children: [
-                const Padding(padding: EdgeInsets.only(top: 10, left: 30),
-               child:Text('Treatment inquiry for', style: TextStyle(fontWeight: FontWeight.bold),)
-                ), 
-                  Padding(
-                padding: const EdgeInsets.only(left: 8, top: 11),
-                child: Radio(
-                  value: 1,
-                  groupValue: _value,
-                  activeColor: const Color.fromRGBO(78, 121, 63, 1),
-                  onChanged: (value) {
-                    setState(() {
-                      _value = value!;
-                    });
-                  },
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text('Myself', style: TextStyle(color: Colors.black,fontSize:12)),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 2,top:10),
-                child: Radio(
-                  value: 2,
-                  groupValue: _value,
-                  activeColor: const Color.fromRGBO(78, 121, 63, 1),
-                  onChanged: (value) {
-                    setState(() {
-                      _value = value!;
-                    });
-                  },
-                ),
-              ),
-              const Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child:
-                      Text('Someone', style: TextStyle(color: Colors.black,fontSize:12))),
-               ],
-              ),
-              
+            Padding(padding: EdgeInsets.only(top: 12, right: 30)),
+           
             const Padding(padding: EdgeInsets.only(top: 30, left: 25),
             child:Text('Company Name',style: TextStyle(fontWeight: FontWeight.bold),), 
             ),
