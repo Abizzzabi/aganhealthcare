@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "321815968216",
+    "project_id": "aganhealthcare-214d2",
+    "storage_bucket": "aganhealthcare-214d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321815968216:android:dcbdf58e00ed78205c9aad",
+        "android_client_info": {
+          "package_name": "com.example.agan_healthcare_service"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "321815968216-gd0kp3gq9itgn4c8dtc11ppmju2g4k8s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZxNTt6KDr9gWE5vvh2opSwrAFYH0lDD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "321815968216-gd0kp3gq9itgn4c8dtc11ppmju2g4k8s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

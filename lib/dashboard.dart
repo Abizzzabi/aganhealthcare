@@ -51,7 +51,7 @@ class _DashboardState extends State<Dashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                  Padding(
+                Padding(
                     padding: const EdgeInsets.all(15),
                     child: Container(
                       height: 200,
@@ -69,7 +69,6 @@ class _DashboardState extends State<Dashboard> {
                           fontSize: 16,
                           fontWeight: FontWeight.bold)),
                 ),
-
                 FutureBuilder<Service>(
                   future: serviceController.fetchAlbum(),
                   builder: (context, AsyncSnapshot<Service> snapshot) {
@@ -86,32 +85,38 @@ class _DashboardState extends State<Dashboard> {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2),
                               itemBuilder: (context, index) {
-                                  return Padding(
-                                      padding: EdgeInsets.all(20.0),
-                                      child: InkWell(
-                                          onTap: () {},
-                                          child: Center(
-                                            child: Column(
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 60,
-                                                  backgroundColor: Color.fromRGBO(
-                                                      223, 242, 216, 1),
-                                                  child: CircleAvatar(
-                                                    radius: 53,
-                                                    backgroundImage:
-                                                        NetworkImage(snapshot.data!.data[index].picture),
-                                                  ),
+                                return Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: InkWell(
+                                        onTap: () {},
+                                        child: Center(
+                                          child: Column(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 60,
+                                                backgroundColor: Color.fromRGBO(
+                                                    223, 242, 216, 1),
+                                                child: CircleAvatar(
+                                                  radius: 53,
+                                                  backgroundImage: NetworkImage(
+                                                      snapshot.data!.data[index]
+                                                          .picture),
                                                 ),
-                                                Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      left: 5),
-                                                  child: Text(
-                                                      snapshot.data!.data[index].name, style: const TextStyle(overflow: TextOverflow.ellipsis),),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 5),
+                                                child: Text(
+                                                  snapshot
+                                                      .data!.data[index].name,
+                                                  style: const TextStyle(
+                                                      overflow: TextOverflow
+                                                          .ellipsis),
                                                 ),
-                                              ],
-                                            ),
-                                          )));
+                                              ),
+                                            ],
+                                          ),
+                                        )));
                               },
                               itemCount: snapshot.data!.data.length,
                             ),
@@ -123,11 +128,9 @@ class _DashboardState extends State<Dashboard> {
                     }
 
                     // By default, show a loading spinner.
-                    return const Center(child:  CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   },
                 ),
-
-               
                 const SizedBox(
                   height: 20,
                 ),

@@ -2,7 +2,16 @@ import 'package:agan_healthcare_service/Appoinment.dart';
 import 'package:agan_healthcare_service/dashboard.dart';
 import 'package:agan_healthcare_service/patientprofile.dart';
 import 'package:agan_healthcare_service/offers.dart';
+import 'package:alt_sms_autofill/alt_sms_autofill.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/phone_number.dart';
+//import 'package:pinput/pinput.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+
+
+
+import 'login1.dart';
 
 class login2 extends StatefulWidget {
   const login2({super.key});
@@ -12,14 +21,31 @@ class login2 extends StatefulWidget {
 }
 
 class _login2State extends State<login2> {
-  TextEditingController otpCodeController=TextEditingController();
-
+final   FirebaseAuth auth=FirebaseAuth.instance;
+  var temp1;
+  final _formKey1 = GlobalKey<FormState>();
+  TextEditingController otp=TextEditingController();
+  bool visible=false;
+  var code='';
+@override
+  void dispose() {
+    otp.dispose();
+    //AltSmsAutofill().unregisterListener();
+    super.dispose();
+  }
+  
+// void dispose(){
+  
+//   otp.dispose();
+//   super.dispose();
+// }
   bool otpCodevisible=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: SingleChildScrollView(
+      body: Form(
+      key: _formKey1,
+    child:  SingleChildScrollView(
       child:Center(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,56 +123,46 @@ class _login2State extends State<login2> {
               ),
               ),
              Padding(padding: const EdgeInsets.only(left: 50, top: 20),
-              child: Row(
-               children: [
-                 SizedBox(width: 50,
-                 height: 50,
-            child:    Expanded(child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(borderRadius: 
-                    BorderRadius.circular(12),
-                    
-                    )
-                  ),
-                )),),
-                const SizedBox(width: 30,),
-              
-              SizedBox(width: 50,
-              height: 50,               
-                 child: Expanded(child: TextField(
-                  decoration: InputDecoration(
-                    //contentPadding: EdgeInsets.symmetric(horizontal: 100.0),
-                    border: OutlineInputBorder(borderRadius: 
-                    BorderRadius.circular(12)
-                    )
-                  ),
-                )),),
-                const SizedBox(width: 30,),
-              
-              SizedBox(width: 50,
-              height: 50,               
-                 child: Expanded(child: TextField(
-                  decoration: InputDecoration(
-                    //contentPadding: EdgeInsets.symmetric(horizontal: 100.0),
-                    border: OutlineInputBorder(borderRadius: 
-                    BorderRadius.circular(12)
-                    )
-                  ),
-                )),),
-                const SizedBox(width: 30,),
-              
-              SizedBox(width: 50,
-              height: 50,               
-                 child: Expanded(child: TextField(
-                  decoration: InputDecoration(
-                    //contentPadding: EdgeInsets.symmetric(horizontal: 100.0),
-                    border: OutlineInputBorder(borderRadius: 
-                    BorderRadius.circular(12)
-                    )
-                  ),
-                )),),
-               ],
-               ),),
+            child:PinCodeTextField(
+          appContext: context,
+          pastedTextStyle: TextStyle(
+            color: Colors.green.shade600,
+            fontWeight: FontWeight.bold,
+          ),
+          length: 6,
+          obscureText: false,
+          animationType: AnimationType.fade,
+          pinTheme: PinTheme(
+            shape: PinCodeFieldShape.box,
+            borderRadius: BorderRadius.circular(10),
+            fieldHeight: 50,
+            fieldWidth: 40,
+            inactiveFillColor: Colors.white,
+           
+            selectedFillColor: Colors.white,
+            activeFillColor: Colors.white,
+           
+          ),
+          cursorColor: Colors.black,
+          animationDuration: Duration(milliseconds: 300),
+          enableActiveFill: true,
+          controller: otp,
+          keyboardType: TextInputType.text,
+          boxShadows: [
+            BoxShadow(
+              offset: Offset(0, 1),
+              color: Colors.black12,
+              blurRadius: 10,
+            )
+          ],
+          onCompleted: (v) {
+            //do something or move to next screen when code complete
+          }, onChanged: (String value) {
+               code=value;
+          },
+          
+        ),
+             ),
                const Padding(padding: EdgeInsets.only(left: 130, top: 20),
                 child: Text("Didn't Receive OTP?"),
                ),
@@ -161,11 +177,23 @@ class _login2State extends State<login2> {
                ),
                Padding(padding: const EdgeInsets.only(top: 30, left: 20, right: 12),
                 child: SizedBox(height: 40, width: 350,
-                child: ElevatedButton(onPressed: () {
-                  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const Dashboard()),
-  );
+                child: ElevatedButton(onPressed: () async {
+                  try{
+                       PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                        verificationId: Login.Verify, smsCode: code);
+                  // Sign the user in (or link) with the credential
+                  print('sona');
+                  print(9843342571);
+                  await auth.signInWithCredential(credential);
+                   Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>  Dashboard()),
+                          );
+                  }
+                  catch(e){
+                     print('wrong otp');
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 42, 109, 52),
@@ -179,6 +207,6 @@ class _login2State extends State<login2> {
         ),
       )
       ),
-    );
+    ));
   }
 }
