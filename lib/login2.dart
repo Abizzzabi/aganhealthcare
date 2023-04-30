@@ -1,4 +1,5 @@
 import 'package:agan_healthcare_service/Appoinment.dart';
+import 'package:agan_healthcare_service/controller/tokencontroller.dart';
 import 'package:agan_healthcare_service/dashboard.dart';
 import 'package:agan_healthcare_service/patientprofile.dart';
 import 'package:agan_healthcare_service/offers.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
 //import 'package:pinput/pinput.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
+import 'globals.dart' as globals;
 
 
 import 'login1.dart';
@@ -21,6 +22,7 @@ class login2 extends StatefulWidget {
 }
 
 class _login2State extends State<login2> {
+  TokenController _tokenController=TokenController();
 final   FirebaseAuth auth=FirebaseAuth.instance;
   var temp1;
   final _formKey1 = GlobalKey<FormState>();
@@ -51,7 +53,7 @@ final   FirebaseAuth auth=FirebaseAuth.instance;
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(padding: const EdgeInsets.only(top: 60,left: 120,bottom: 60),
-              child:Image.asset('assets/image/plus1.jpg',),),
+              child:Image.asset('assets/plus1.jpg',),),
               Padding(padding: const EdgeInsets.only(left: 50),
               child: Row(
                 children: const [
@@ -182,14 +184,17 @@ final   FirebaseAuth auth=FirebaseAuth.instance;
                        PhoneAuthCredential credential = PhoneAuthProvider.credential(
                         verificationId: Login.Verify, smsCode: code);
                   // Sign the user in (or link) with the credential
-                  print('sona');
-                  print(9843342571);
+                  // print('sona');
+                  //print(9843342571);
+
                   await auth.signInWithCredential(credential);
                    Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>  Dashboard()),
                           );
+                          final user = await _tokenController
+                                      .fetchAlbum('${globals.mobile}');
                   }
                   catch(e){
                      print('wrong otp');

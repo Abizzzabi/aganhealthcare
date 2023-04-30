@@ -47,6 +47,7 @@ dependencies:
   otp_autofill: ^2.1.0
   alt_sms_autofill: ^1.0.0
   sms_otp_auto_verify: ^2.1.0
+  shared_preferences: ^2.1.0
   
 dev_dependencies:
   flutter_test:

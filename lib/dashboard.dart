@@ -1,8 +1,10 @@
 import 'package:agan_healthcare_service/controller/servicecontroller.dart';
 import 'package:agan_healthcare_service/history.dart';
+import 'package:agan_healthcare_service/login1.dart';
 import 'package:agan_healthcare_service/models/servicemodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'neuralogist.dart';
 
 class Dashboard extends StatefulWidget {
@@ -33,17 +35,23 @@ class _DashboardState extends State<Dashboard> {
                 MaterialPageRoute(builder: (context) => const Neurologist()),
               );
             },
-            icon: Icon(Icons.account_circle_outlined),
+            icon: const Icon(Icons.account_circle_outlined),
           ),
           title: const Text('DASHBOARD', textAlign: TextAlign.center),
           centerTitle: true,
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  // final SharedPreferences sharedPreferences= await SharedPreferences.getInstance();
+                  // sharedPreferences.remove('phoneNumber');
+                  // Get.to(Login());
+                },
                 icon: const Icon(
-                  Icons.notifications,
+                  Icons.logout,
                   color: Colors.white,
-                )),
+                  
+                )
+                ),
           ],
         ),
         body: SingleChildScrollView(
@@ -76,17 +84,17 @@ class _DashboardState extends State<Dashboard> {
                         snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
                         return Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: SizedBox(
                             height: 500,
                             child: GridView.builder(
                               shrinkWrap: true,
                               gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2),
                               itemBuilder: (context, index) {
                                 return Padding(
-                                    padding: EdgeInsets.all(20.0),
+                                    padding: const EdgeInsets.all(20.0),
                                     child: InkWell(
                                         onTap: () {},
                                         child: Center(
@@ -94,7 +102,7 @@ class _DashboardState extends State<Dashboard> {
                                             children: [
                                               CircleAvatar(
                                                 radius: 60,
-                                                backgroundColor: Color.fromRGBO(
+                                                backgroundColor: const Color.fromRGBO(
                                                     223, 242, 216, 1),
                                                 child: CircleAvatar(
                                                   radius: 53,
@@ -177,7 +185,7 @@ class _DashboardState extends State<Dashboard> {
                                       child: CircleAvatar(
                                           radius: 60,
                                           backgroundImage: AssetImage(
-                                              'assets/image/doctor.png')),
+                                              'assets/doctor.png')),
                                     ),
                                     Padding(
                                       padding:

@@ -1,17 +1,14 @@
 import 'dart:convert';
-
 import 'package:agan_healthcare_service/controller/mobilecontroller.dart';
 import 'package:agan_healthcare_service/login2.dart';
-import 'package:agan_healthcare_service/models/mobilemodel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:http/http.dart' as http;
-
+import 'globals.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
 class Login extends StatefulWidget {
   const Login({super.key});
-  static String Verify='';
+  static String Verify = '';
   @override
   State<Login> createState() => _LoginState();
 }
@@ -19,7 +16,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   final phoneNumber = TextEditingController();
-  TextEditingController countrycode=TextEditingController();
+  String mobileNumber='';
+  TextEditingController countrycode = TextEditingController();
   TextEditingController otp = TextEditingController();
   var user = '';
   bool _isLoading = false;
@@ -28,7 +26,8 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
-   countrycode.text="+91";
+    countrycode.text = "+91";
+    getMobileNumber();
     super.initState();
   }
 
@@ -70,7 +69,7 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.only(top: 60, left: 120, bottom: 60),
                 child: Image.asset(
-                  'assets/image/plus1.jpg',
+                  'assets/plus1.jpg',
                 ),
               ),
               Padding(
@@ -178,7 +177,7 @@ class _LoginState extends State<Login> {
                       child: TextFormField(
                         keyboardType: TextInputType.phone,
                         onChanged: (value) {
-                          phone=value;
+                          phone = value;
                         },
                         controller: phoneNumber,
                         maxLines: 1,
@@ -214,7 +213,6 @@ class _LoginState extends State<Login> {
                         }),
                       ),
                     ),
-                    
                   ],
                 ),
               ),
@@ -247,71 +245,116 @@ class _LoginState extends State<Login> {
                 child: Text('on this mobile number'),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 30, left: 20, right: 12),
-                child: SizedBox(
-                  height: 40,
-                  width: 350,
-                  child:_isLoading?
-                  CircularProgressIndicator():
-                  ElevatedButton(
-                    onPressed: () async {
-                     
-                      if (_formKey.currentState!.validate()) {
-                          setState(() {
-                        _isLoading=true;
-                      });
+                  padding: const EdgeInsets.only(top: 30, left: 20, right: 12),
+                  child: SizedBox(
+                      height: 40,
+                      width: 350,
+                      child: _isLoading
+                          ? CircularProgressIndicator()
+                          : ElevatedButton(
+                              onPressed: () async {
+                                saveMobileNumber();
+                                if (_formKey.currentState!.validate()) {
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
 
-                        final user = await _mobileController
-                            .fetchAlbum(phoneNumber.text);
+                                  final user = await _mobileController
+                                      .fetchAlbum(phoneNumber.text);
+                                      globals.mobile = phoneNumber.text;
+                                  print(user.msg);
 
-                            print(user.msg);
+                                  if (user.status == true) {
+                                    await FirebaseAuth.instance
+                                        .verifyPhoneNumber(
+                                      phoneNumber:
+                                          '${countrycode.text + phone}',
+                                      verificationCompleted:
+                                          (PhoneAuthCredential credential) {},
+                                      verificationFailed:
+                                          (FirebaseAuthException e) {},
+                                      codeSent: (String verificationId,
+                                          int? resendToken) {
+                                        Login.Verify = verificationId;
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => login2()),
+                                        );
+                                      },
+                                      codeAutoRetrievalTimeout:
+                                          (String verificationId) {},
+                                    );
 
-                        if (user.status == true) {
-                          await FirebaseAuth.instance.verifyPhoneNumber(
-  phoneNumber: '${countrycode.text+phone}',
-  verificationCompleted: (PhoneAuthCredential credential) {},
-  verificationFailed: (FirebaseAuthException e) {},
-  codeSent: (String verificationId, int? resendToken) {
-         Login.Verify=verificationId;
-         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>  login2()),                            
-                          );
-  },
-  codeAutoRetrievalTimeout: (String verificationId) {},
-);
-                          
-                      
-                      // temp = await FirebaseAuthentication()
-                      //     .sendOTP(phoneNumber.text);
-                     
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text("OTp sent to the entered mobile number")));
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(content: Text(user.msg)));
-                        }
-                      }
+                                    // temp = await FirebaseAuthentication()
+                                    //     .sendOTP(phoneNumber.text);
 
-                     
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 42, 109, 52),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 90, vertical: 10),
-                    ),
-                    child: const Text('Send OTP'),
-                  )
-                )
-              )
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                "OTp sent to the entered mobile number")));
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(user.msg)));
+                                  }
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromARGB(255, 42, 109, 52),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 90, vertical: 10),
+                              ),
+                              child: const Text('Send OTP'),
+                            )))
             ],
           ),
         ),
       ),
     ));
   }
+ Future<void> saveMobileNumber() async {
+    final prefs = await SharedPreferences.getInstance();
+   
+    await prefs.setString('mobile_number',globals.mobile);
+    setState(() {
+      mobileNumber = globals.mobile;
+    });
+  }
+
+  Future<void> getMobileNumber() async {
+    final prefs = await SharedPreferences.getInstance();
+    final mobileNumber = prefs.getString('mobile_number');
+    setState(() {
+      this.mobileNumber = mobileNumber ?? '';
+      globals.mobile = this.mobileNumber;
+    });
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // class FirebaseAuthentication {
 //   String phoneNumber = "";
