@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:agan_healthcare_service/models/adsmodel.dart';
 import 'package:agan_healthcare_service/models/dnetistmodels.dart';
 import 'package:agan_healthcare_service/models/mobilemodel.dart';
@@ -9,14 +10,14 @@ import '../models/servicemodel.dart';
 
 class AdsController {
 
-  Future<Ads> fetchAlbum(String id) async {
-    var requestBody = { "id": id};
+  Future<Ads> fetchAlbum() async {
+    //var requestBody = {"picture": Picture};
     
     final response = await http.post(
       Uri.parse(
-          'https://agen-healthcare.nw.r.appspot.com/api/Auth/employee/get_doctor'),
-      body: jsonEncode(requestBody),
-      headers: {'Content-Type': 'application/json'},
+          'https://agen-healthcare.nw.r.appspot.com/api/Auth/employee/ads_list'),
+      // body: jsonEncode(requestBody),
+      // headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 200) {

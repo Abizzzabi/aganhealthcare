@@ -1,9 +1,11 @@
+import 'package:agan_healthcare_service/Appoinment.dart';
 import 'package:agan_healthcare_service/controller/dentcontroller.dart';
 import 'package:agan_healthcare_service/controller/servicecontroller.dart';
 import 'package:agan_healthcare_service/history.dart';
 import 'package:agan_healthcare_service/login1.dart';
 import 'package:agan_healthcare_service/models/adsmodel.dart';
 import 'package:agan_healthcare_service/models/servicemodel.dart';
+import 'package:agan_healthcare_service/patientprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,8 +14,7 @@ import 'neuralogist.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key,});
-
+  const Dashboard({super.key});
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -31,16 +32,16 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     final ServiceController serviceController = Get.put(ServiceController());
     final DentistController dentistController = Get.put(DentistController());
-   
+    final AdsController adsController = Get.put(AdsController());
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(78, 121, 63, 1),
           leading: IconButton(
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const Neurologist()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Patientprofile()),
+              );
             },
             icon: const Icon(Icons.account_circle_outlined),
           ),
@@ -48,8 +49,24 @@ class _DashboardState extends State<Dashboard> {
           centerTitle: true,
           actions: [
             IconButton(
-                onPressed: () async {},
-                icon: const Icon(
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Appoinment()),
+                  );
+                },
+                icon: Icon(
+                  Icons.calendar_month_outlined,
+                  color: Colors.white,
+                )),
+            IconButton(
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Login()),
+                  );
+                },
+                icon: Icon(
                   Icons.logout,
                   color: Colors.white,
                 )),
@@ -60,41 +77,60 @@ class _DashboardState extends State<Dashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CarouselSlider(items: 
-                 [
-                  Container(
-                  margin: EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: DecorationImage(
-                      image: NetworkImage("ADD IMAGE URL HERE"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: DecorationImage(
-                      image: NetworkImage("ADD IMAGE URL HERE"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                 ],
-                
-                options: CarouselOptions(
-                  height: 180.0,
-                  enlargeCenterPage: false,
-                  autoPlay: true,
-                  aspectRatio: 16/9,
-                  autoPlayCurve: Curves.fastLinearToSlowEaseIn,
-                  enableInfiniteScroll: true,
-                  autoPlayAnimationDuration: Duration(milliseconds: 800),
-                  viewportFraction: 0.8,
-                )),
+                FutureBuilder<Ads>(
+                  future: adsController.fetchAlbum(),
+                  builder: (context, AsyncSnapshot<Ads> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active ||
+                        snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Center(
+                                    child: CarouselSlider.builder(
+                                  itemBuilder: ((context, index, realIndex) {
+                                    return Container(
+                                      margin: EdgeInsets.all(6.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        image: DecorationImage(
+                                          image: NetworkImage(snapshot
+                                              .data!.data[index].picture),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                                  options: CarouselOptions(
+                                    height: 180.0,
+                                    enlargeCenterPage: false,
+                                    autoPlay: true,
+                                    aspectRatio: 16 / 9,
+                                    autoPlayCurve:
+                                        Curves.fastLinearToSlowEaseIn,
+                                    enableInfiniteScroll: true,
+                                    autoPlayAnimationDuration:
+                                        Duration(milliseconds: 800),
+                                    viewportFraction: 0.8,
+                                  ),
+                                  itemCount: snapshot.data!.data.length,
+                                )),
+                              ],
+                            ),
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('${snapshot.error}');
+                      }
+                    }
 
+                    // By default, show a loading spinner.
+                    return const Center(child: CircularProgressIndicator());
+                  },
+                ),
                 const Padding(
                   padding: EdgeInsets.all(20),
                   child: Text('Treatments',

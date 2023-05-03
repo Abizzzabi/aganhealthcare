@@ -62,7 +62,7 @@ class _NeurologistState extends State<Neurologist> {
                                       crossAxisCount: 2),
                               itemBuilder: (context, index) {
                                 return Padding(
-                                    padding: const EdgeInsets.all(20.0),
+                                    padding: const EdgeInsets.all(10.0),
                                     child: InkWell(
                                         onTap: () async {
                                               Navigator.push(
