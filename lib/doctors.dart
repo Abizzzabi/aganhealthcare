@@ -574,7 +574,7 @@ class _DoctorsState extends State<Doctors> {
                                                       TextStyle(fontSize: 8)),
                                               onPressed: () {
                                                 Navigator.push(context,
-                                                   MaterialPageRoute(builder: (context) => const doctorprofile()),
+                                                   MaterialPageRoute(builder: (context) => const doctorprofile(id1: '',)),
                                                    );
                                               },
                                             ),

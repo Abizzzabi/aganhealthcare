@@ -1,14 +1,19 @@
+import 'package:agan_healthcare_service/controller/dentcontroller.dart';
 import 'package:agan_healthcare_service/controller/servicecontroller.dart';
 import 'package:agan_healthcare_service/history.dart';
 import 'package:agan_healthcare_service/login1.dart';
+import 'package:agan_healthcare_service/models/adsmodel.dart';
 import 'package:agan_healthcare_service/models/servicemodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'controller/adscontroller.dart';
 import 'neuralogist.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  const Dashboard({super.key,});
+
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -25,15 +30,17 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     final ServiceController serviceController = Get.put(ServiceController());
+    final DentistController dentistController = Get.put(DentistController());
+   
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(78, 121, 63, 1),
           leading: IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Neurologist()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const Neurologist()),
+              // );
             },
             icon: const Icon(Icons.account_circle_outlined),
           ),
@@ -41,17 +48,11 @@ class _DashboardState extends State<Dashboard> {
           centerTitle: true,
           actions: [
             IconButton(
-                onPressed: () async {
-                  // final SharedPreferences sharedPreferences= await SharedPreferences.getInstance();
-                  // sharedPreferences.remove('phoneNumber');
-                  // Get.to(Login());
-                },
+                onPressed: () async {},
                 icon: const Icon(
                   Icons.logout,
                   color: Colors.white,
-                  
-                )
-                ),
+                )),
           ],
         ),
         body: SingleChildScrollView(
@@ -59,16 +60,41 @@ class _DashboardState extends State<Dashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Container(
-                      height: 200,
-                      width: 350,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color.fromRGBO(223, 242, 216, 1),
-                      ),
-                    )),
+                CarouselSlider(items: 
+                 [
+                  Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: NetworkImage("ADD IMAGE URL HERE"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image: DecorationImage(
+                      image: NetworkImage("ADD IMAGE URL HERE"),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                 ],
+                
+                options: CarouselOptions(
+                  height: 180.0,
+                  enlargeCenterPage: false,
+                  autoPlay: true,
+                  aspectRatio: 16/9,
+                  autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+                  enableInfiniteScroll: true,
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  viewportFraction: 0.8,
+                )),
+
                 const Padding(
                   padding: EdgeInsets.all(20),
                   child: Text('Treatments',
@@ -96,14 +122,24 @@ class _DashboardState extends State<Dashboard> {
                                 return Padding(
                                     padding: const EdgeInsets.all(20.0),
                                     child: InkWell(
-                                        onTap: () {},
+                                        onTap: () async {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Neurologist(
+                                                        id: snapshot.data!
+                                                            .data[index].id)),
+                                          );
+                                        },
                                         child: Center(
                                           child: Column(
                                             children: [
                                               CircleAvatar(
                                                 radius: 60,
-                                                backgroundColor: const Color.fromRGBO(
-                                                    223, 242, 216, 1),
+                                                backgroundColor:
+                                                    const Color.fromRGBO(
+                                                        223, 242, 216, 1),
                                                 child: CircleAvatar(
                                                   radius: 53,
                                                   backgroundImage: NetworkImage(
@@ -184,8 +220,8 @@ class _DashboardState extends State<Dashboard> {
                                           EdgeInsets.only(left: 20, top: 20),
                                       child: CircleAvatar(
                                           radius: 60,
-                                          backgroundImage: AssetImage(
-                                              'assets/doctor.png')),
+                                          backgroundImage:
+                                              AssetImage('assets/doctor.png')),
                                     ),
                                     Padding(
                                       padding:

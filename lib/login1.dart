@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:agan_healthcare_service/controller/mobilecontroller.dart';
 import 'package:agan_healthcare_service/login2.dart';
+import 'package:agan_healthcare_service/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -27,7 +28,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     countrycode.text = "+91";
-    getMobileNumber();
+    //getMobileNumber();
     super.initState();
   }
 
@@ -253,8 +254,9 @@ class _LoginState extends State<Login> {
                           ? CircularProgressIndicator()
                           : ElevatedButton(
                               onPressed: () async {
-                                saveMobileNumber();
+                               
                                 if (_formKey.currentState!.validate()) {
+                                   saveMobileNumber();
                                   setState(() {
                                     _isLoading = true;
                                   });
@@ -270,7 +272,10 @@ class _LoginState extends State<Login> {
                                       phoneNumber:
                                           '${countrycode.text + phone}',
                                       verificationCompleted:
-                                          (PhoneAuthCredential credential) {},
+                                          (PhoneAuthCredential credential) {
+                                            print('Phone verification successful');
+                                            //token = credential.token;
+                                          },
                                       verificationFailed:
                                           (FirebaseAuthException e) {},
                                       codeSent: (String verificationId,
@@ -322,14 +327,14 @@ class _LoginState extends State<Login> {
     });
   }
 
-  Future<void> getMobileNumber() async {
-    final prefs = await SharedPreferences.getInstance();
-    final mobileNumber = prefs.getString('mobile_number');
-    setState(() {
-      this.mobileNumber = mobileNumber ?? '';
-      globals.mobile = this.mobileNumber;
-    });
-  }
+  // Future<void> getMobileNumber() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final mobileNumber = prefs.getString('mobile_number');
+  //   setState(() {
+  //     this.mobileNumber = mobileNumber ?? '';
+  //     globals.mobile = this.mobileNumber;
+  //   });
+  // }
 }
 
 

@@ -6,6 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'neuralogist.dart';
+
+String token = '';
+
 void main() async {
   // WidgetsFlutterBinding.ensureInitialized;
   // await Firebase.initializeApp();
@@ -31,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: Dashboard(),
     );
   }
 }
