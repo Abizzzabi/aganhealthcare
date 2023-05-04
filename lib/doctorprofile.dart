@@ -158,20 +158,24 @@ class _doctorprofileState extends State<doctorprofile> {
                           //subtitle: Text('7.30 pm to 10.00 pm'),
                         ),
                       ),
-                      //Padding(padding: EdgeInsets.only(top: 15,),),
+                      Padding(padding: EdgeInsets.only(top: 15,),),
                       Container(
-                        width: double.infinity,
                         height: 200,
-                        margin: const EdgeInsets.only(left: 15, right: 15),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: const DecorationImage(
-                              image: AssetImage(
-                                'assets/image/lab.png',
-                              ),
-                              fit: BoxFit.cover,
-                            )),
+                        child: Card(
+                          child: Image.network(snapshot.data!.data.picture,
+                          fit: BoxFit.fill,
+                          ),
+                           shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+                        ),
                       ),
+                      // Container(
+                      //   width: double.infinity,
+                      //   height: 200,
+                      //   margin: const EdgeInsets.only(left: 15, right: 15),
+                        
+                      // ),
 
                       Padding(
                         padding: EdgeInsets.only(top: 20, left: 10),
@@ -192,6 +196,7 @@ class _doctorprofileState extends State<doctorprofile> {
               return const Center(child: CircularProgressIndicator());
             },
           ),
-        ));
+        )
+        );
   }
 }

@@ -1,5 +1,9 @@
+import 'package:agan_healthcare_service/Appoinment.dart';
 import 'package:agan_healthcare_service/dashboard.dart';
+import 'package:agan_healthcare_service/doctorprofile.dart';
+import 'package:agan_healthcare_service/history.dart';
 import 'package:agan_healthcare_service/login2.dart';
+import 'package:agan_healthcare_service/patientprofile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:agan_healthcare_service/login1.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +39,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Dashboard(),
+      home: Patientprofile(),
     );
   }
 }

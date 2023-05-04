@@ -8,7 +8,6 @@ import 'package:agan_healthcare_service/models/servicemodel.dart';
 import 'package:agan_healthcare_service/patientprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'controller/adscontroller.dart';
 import 'neuralogist.dart';
 import 'package:carousel_slider/carousel_slider.dart';

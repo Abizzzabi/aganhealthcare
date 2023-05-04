@@ -53,7 +53,7 @@ class _PatientprofileState extends State<Patientprofile> {
                 color: Color.fromRGBO(223, 242, 216, 1),
                 ),
                 padding: EdgeInsets.all(10),
-                child: Image.asset('assets/image/profile2.jpg'
+                child: Image.asset('assets/profile2.jpg'
                 ),
          ),
           ),
