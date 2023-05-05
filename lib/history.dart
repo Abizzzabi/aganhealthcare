@@ -1,26 +1,43 @@
+import 'package:agan_healthcare_service/models/historymodels.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import 'controller/historycontroller.dart';
 import 'dashboard.dart';
 import 'doctors.dart';
 
-class History extends StatefulWidget {
-  const History({super.key});
+class Historymodel extends StatefulWidget {
+  const Historymodel({super.key, required this.id});
+  
+   final String id;
 
   @override
-  State<History> createState() => _HistoryState();
+  State<Historymodel> createState() => _HistorymodelState();
 }
 
-class _HistoryState extends State<History> {
+class _HistorymodelState extends State<Historymodel> {
+  late Future<Historymodel> futureAlbum;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final HistoryController historyController = Get.put(HistoryController());
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
           backgroundColor: const Color.fromRGBO(78, 121, 63, 1),
           leading: TextButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Doctors()),
+                  MaterialPageRoute(
+                      builder: (context) => const Doctors(
+                            id: '',
+                          )),
                 );
               },
               child: const Icon(
@@ -43,207 +60,189 @@ class _HistoryState extends State<History> {
                   color: Colors.white,
                 )),
           ]),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                  Padding(padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
-          child:GestureDetector(
-            onTap: (){
-              Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const Doctors()),
-  );
-            },
-         
-            child: Container(height: 200,width: 330,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            color: const Color.fromRGBO(78, 121, 63, 1)),
-            child:Row(children: [
-             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-              Padding(padding: EdgeInsets.only(left: 20,top: 20),
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage('assets/image/doctor.png')),
-              ),
-              Padding(padding: EdgeInsets.only(left: 30,top: 13),
-              child: Text('Dr.Annah Ray',style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1),fontSize: 15,fontWeight: FontWeight.bold),),
-              )
-            ],    
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:const [
-                Padding(padding: EdgeInsets.only(top:20,left: 35),
-              child:   Text('Date',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('02/02/2021',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-                 Padding(padding: EdgeInsets.only(top:30,left: 35),
-              child:   Text('Issues',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('Lorem Ipsum ante due locatols',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-                 Padding(padding: EdgeInsets.only(top:20,left: 35),
-              child:   Text('Time',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('8.00 pm-9.00 pm',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-              ]
-            )
-            ],),
+      body: SingleChildScrollView(
+        child: FutureBuilder<History>(
+          future: historyController.fetchAlbum(widget.id),
+          builder: (context, AsyncSnapshot<History> snapshot) {
+            if (snapshot.connectionState == ConnectionState.active ||
+                snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                print(snapshot.data!.msg.toString());
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                      height: 500,
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          primary: true,
+                          shrinkWrap: true,
+                          itemBuilder: ((context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: InkWell(
+                                onTap: (() async {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Doctors(
+                                            id: snapshot.data!.data[index].id)),
+                                  );
+                                }),
 
-            ),),
-           ) ,
-               Padding(padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
-               
-            child: Container(height: 200,width: 330,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            color: const Color.fromRGBO(78, 121, 63, 1)),
-            child:Row(children: [
-             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-              Padding(padding: EdgeInsets.only(left: 20,top: 20),
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage('assets/image/doctor.png')),
-              ),
-              Padding(padding: EdgeInsets.only(left: 30,top: 13),
-              child: Text('Dr.Annah Ray',style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1),fontSize: 15,fontWeight: FontWeight.bold),),
-              )
-            ],    
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:const [
-                Padding(padding: EdgeInsets.only(top:20,left: 35),
-              child:   Text('Date',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('02/02/2021',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-                 Padding(padding: EdgeInsets.only(top:30,left: 35),
-              child:   Text('Issues',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('Lorem Ipsum ante due locatols',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-                 Padding(padding: EdgeInsets.only(top:20,left: 35),
-              child:   Text('Time',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('8.00 pm-9.00 pm',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-              ]
-            )
-            ],),
+                                child: Container(
+                                  height: 200,
+                                  width: 330,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color:
+                                          const Color.fromRGBO(78, 121, 63, 1)),
+                                  child:  Row(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                       const  Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 20, top: 20),
+                                            child: CircleAvatar(
+                                                radius: 60,
+                                                backgroundImage: AssetImage(
+                                                    'assets/doctor.png')),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 30, top: 13),
+                                            child: Text(
+                                               snapshot
+                                                      .data!.data[index].doctor,
+                                              style: TextStyle(
+                                                  color: Color.fromRGBO(
+                                                      255, 255, 255, 1),
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                           const  Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 15, left: 35),
+                                              child: Text(
+                                                'Employee Name',
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        255, 255, 255, 0.6)),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 5, left: 35),
+                                              child: Text(
+                                                snapshot
+                                                      .data!.data[index].empEname,
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        255, 255, 255, 1)),
+                                              ),
+                                            ),
+                                          const   Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 15, left: 35),
+                                              child: Text(
+                                                'Date',
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        255, 255, 255, 0.6)),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 5, left: 35),
+                                              child: Text(
+                                                snapshot
+                                                      .data!.data[index].date.toString(),
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        255, 255, 255, 1)),
+                                              ),
+                                            ),
+                                         const   Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 15, left: 35),
+                                              child: Text(
+                                                'Service',
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        255, 255, 255, 0.6)),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 5, left: 35),
+                                              child: Text(
+                                                 snapshot
+                                                      .data!.data[index].service,
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        255, 255, 255, 1)),
+                                              ),
+                                            ),
+                                          const  Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 15, left: 35),
+                                              child: Text(
+                                                'Appoinment For',
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        255, 255, 255, 0.6)),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  top: 5, left: 35),
+                                              child: Text(
+                                                 snapshot
+                                                      .data!.data[index].appointmentFor,
+                                                style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        255, 255, 255, 1)),
+                                              ),
+                                            ),
+                                          ])
+                                    ],
+                                  ),
+                                ),
+           
+                              ),
+                            );
+                           // itemCount: snapshot.data!.data.length;
+                          }))),
+                );
+              }
+              else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+            }
 
-            ),),
-              
-              
-               Padding(padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
-             
-            child: Container(height: 200,width: 330,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            color: const Color.fromRGBO(78, 121, 63, 1)),
-            child:Row(children: [
-             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-              Padding(padding: EdgeInsets.only(left: 20,top: 20),
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage('assets/image/doctor.png')),
-              ),
-              Padding(padding: EdgeInsets.only(left: 30,top: 13),
-              child: Text('Dr.Annah Ray',style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1),fontSize: 15,fontWeight: FontWeight.bold),),
-              )
-            ],    
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:const [
-                Padding(padding: EdgeInsets.only(top:20,left: 35),
-              child:   Text('Date',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('02/02/2021',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-                 Padding(padding: EdgeInsets.only(top:30,left: 35),
-              child:   Text('Issues',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('Lorem Ipsum ante due locatols',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-                 Padding(padding: EdgeInsets.only(top:20,left: 35),
-              child:   Text('Time',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('8.00 pm-9.00 pm',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-              ]
-            )
-            ],),
-
-            ),),
-            
-               
-               Padding(padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
-              
-            child: Container(height: 200,width: 330,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            color: const Color.fromRGBO(78, 121, 63, 1)),
-            child:Row(children: [
-             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-              Padding(padding: EdgeInsets.only(left: 20,top: 20),
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage('assets/image/doctor.png')),
-              ),
-              Padding(padding: EdgeInsets.only(left: 30,top: 13),
-              child: Text('Dr.Annah Ray',style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1),fontSize: 15,fontWeight: FontWeight.bold),),
-              )
-            ],    
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:const [
-                Padding(padding: EdgeInsets.only(top:20,left: 35),
-              child:   Text('Date',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('02/02/2021',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-                 Padding(padding: EdgeInsets.only(top:30,left: 35),
-              child:   Text('Issues',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('Lorem Ipsum ante due locatols',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-                 Padding(padding: EdgeInsets.only(top:20,left: 35),
-              child:   Text('Time',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 0.6)),),
-                ),
-                Padding(padding: EdgeInsets.only(top:5,left: 35),
-              child:   Text('8.00 pm-9.00 pm',style: TextStyle(fontSize: 10,color: Color.fromRGBO(255, 255, 255, 1)),),
-                ),
-              ]
-            )
-            ],),
-
-            ),),
-               
-
-              ],
-            ),
-         ),);}}
+            // By default, show a loading spinner.
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
+       
+      ),
+    );
+  }
+}

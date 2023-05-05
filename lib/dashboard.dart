@@ -235,7 +235,7 @@ class _DashboardState extends State<Dashboard> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const History()),
+                                builder: (context) => const Historymodel(id: '',)),
                           );
                         },
                         child: Card(

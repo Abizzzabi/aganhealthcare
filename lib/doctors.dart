@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:material_dialogs/dialogs.dart';
 
 class Doctors extends StatefulWidget {
-  const Doctors({super.key});
+  const Doctors({super.key, required String id});
 
   @override
   State<Doctors> createState() => _DoctorsState();
